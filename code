@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+using IntArray = vector<int>;
+
+auto Wdp(int n, const IntArray& V)
+{
+    IntArray p(n + 1);
+    p[0] = 1;
+    for (int m = 0; m < V.size(); m++)
+        for (int i = V[m]; i <= n; i++)
+            p[i] += p[i - V[m]];
+    return p;
+}
+
+int main()
+{
+    int n,m,a;
+    IntArray V;
+    cout << "Nhap so luong menh gia: ";
+    /*while (cin >> n)
+    {
+        V.push_back(n);
+        m++;
+    }*/
+    cin >> n;
+    cout << "Nhap menh gia: " << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a;
+        V.push_back(a);
+    }
+    cout << "Nhap so tien can doi: ";
+    cin >> m;
+    auto p = Wdp(m, V);
+    for (int i = 0; i < m; i++)
+    {
+        cout << " - " << i  << endl;
+        cout << p[i] << endl;
+    }
+    return 0;
+}
